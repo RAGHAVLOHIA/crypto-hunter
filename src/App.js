@@ -1,24 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import { ThemeProvider ,createTheme} from '@mui/material';
 
+import { BrowserRouter, Routes,Route } from 'react-router-dom';
+import './App.css';
+import Header from './components/Header';
+import CoinPage from './pages/CoinPage';
+import HomePage from './pages/HomePage';
+
+const theme = createTheme({
+ 
+ palette:{
+  primary:{
+    main: '#14161a',
+    // light: 'white'
+  }
+ }
+})
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+
+    <BrowserRouter>
+      <div style={{backgroundColor:theme.palette.primary.main, color:'white', minHeight:'100vh'}}>
+        <Header/>
+        <Routes>
+          <Route path='/' element={<HomePage/>}/>
+          <Route path='/coins/:id' element={<CoinPage/>}/>
+        </Routes>
+      </div>
+    </BrowserRouter>
+    </ThemeProvider>
   );
 }
 
